@@ -5,18 +5,20 @@ import NoteContext from "./NoteContext";
 const NoteState = (props) => {
   const host="http://localhost:5000"  
   const notesInitial=[]
-    const [notes, setNotes]= useState(notesInitial)
+  const [notes, setNotes]= useState(notesInitial)
 //get all notes
 const getNote=async()=>{
+  console.log("in get notes")
+  console.log(localStorage.getItem('token'))
   const response=await fetch(`${host}/api/notes/fetchallnotes`,{
     method:"GET",
     headers:{
     "Content-Type":"application/json",
-    "Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU1YWRkMTc0ZmIxZTk0Mjk0NzVkZmVlIn0sImlhdCI6MTcwMDUxNzM1OH0.kao7mp9-lq0GbtLv_lQqI6M5wvdBeW9P9N3dRIELluM"
+    "Auth-Token": localStorage.getItem('token')
   }
 });
 const json=await response.json();
-// console.log(json)
+console.log(json)
 setNotes(json)
 }
     
@@ -27,7 +29,7 @@ const addNote=async(title,description,tags)=>{
     method:"POST",
     headers:{
     "Content-Type":"application/json",
-    "Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU1YWRkMTc0ZmIxZTk0Mjk0NzVkZmVlIn0sImlhdCI6MTcwMDUxNzM1OH0.kao7mp9-lq0GbtLv_lQqI6M5wvdBeW9P9N3dRIELluM"
+    "Auth-Token": localStorage.getItem('token')
   },
   body:JSON.stringify({title,description,tags})
 });
@@ -42,7 +44,7 @@ const editNote=async(id,title,description,tags)=>{
     method:"PUT",
     headers:{
     "Content-Type":"application/json",
-    "Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU1YWRkMTc0ZmIxZTk0Mjk0NzVkZmVlIn0sImlhdCI6MTcwMDUxNzM1OH0.kao7mp9-lq0GbtLv_lQqI6M5wvdBeW9P9N3dRIELluM"
+    "Auth-Token": localStorage.getItem('token')
   },
   body:JSON.stringify({title,description,tags})
 });
@@ -69,7 +71,7 @@ const deleteNote=async(id)=>{
     method:"DELETE",
     headers:{
     "Content-Type":"application/json",
-    "Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU1YWRkMTc0ZmIxZTk0Mjk0NzVkZmVlIn0sImlhdCI6MTcwMDUxNzM1OH0.kao7mp9-lq0GbtLv_lQqI6M5wvdBeW9P9N3dRIELluM"
+    "Auth-Token": localStorage.getItem('token')
   }
 });
 // eslint-disable-next-line
